@@ -1,11 +1,15 @@
-<div align="center">
+# Flutter Login Sample
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+This is a professional sample login page built with Flutter and Dart.
 
-  <h1>Built with AI Studio</h2>
+## Project Structure
+- `lib/main.dart`: Entry point of the application.
+- `lib/login_screen.dart`: The login UI page.
+- `pubspec.yaml`: Project configuration and dependencies.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
-
-  <a href="https://aistudio.google.com/apps">Start building</a>
-
-</div>
+## Getting Started
+1. Export this project to **GitHub** using the AI Studio menu.
+2. Open **Project IDX** (idx.google.com).
+3. Import this repository into Project IDX.
+4. Run `flutter pub get` in the terminal.
+5. Launch the app on Chrome or Android/iOS emulator.
