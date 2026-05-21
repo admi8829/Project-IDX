@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'category_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,7 +10,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
   bool _isObscure = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
-                    Icons.lock_person_outlined,
+                    Icons.quiz_outlined,
                     size: 80,
                     color: Colors.blueAccent,
                   ),
@@ -39,16 +47,17 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 40),
               const Text(
-                'Welcome Back!',
+                'Welcome Back',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
+                  letterSpacing: -0.5,
                 ),
               ),
               const SizedBox(height: 8),
               const Text(
-                'Please sign in to continue',
+                'Sign in to enter the Quiz Universe',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
@@ -61,6 +70,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     // Email Field
                     TextFormField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         hintText: 'hello@example.com',
@@ -76,6 +87,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email';
+                        }
+                        if (!value.contains('@')) {
+                          return 'Please enter a valid email';
                         }
                         return null;
                       },
@@ -109,6 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
                         }
+                        if (value.length < 4) {
+                          return 'Password must be at least 4 characters';
+                        }
                         return null;
                       },
                     ),
@@ -128,10 +145,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // Implement login logic
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Logging in...')),
+                              const SnackBar(
+                                content: Text('Access Granted! Fetching daily questions...'),
+                                duration: Duration(milliseconds: 1000),
+                              ),
                             );
+                            
+                            // Beautiful deferred safe transition to Categories Dashboard
+                            Future.delayed(const Duration(milliseconds: 1100), () {
+                              if (!mounted) return;
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CategoryScreen(
+                                    email: _emailController.text,
+                                  ),
+                                ),
+                              );
+                            });
                           }
                         },
                         style: ElevatedButton.styleFrom(

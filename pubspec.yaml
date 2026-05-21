@@ -1,5 +1,5 @@
-name: flutter_login_sample
-description: A sample Flutter login page project.
+name: flutter_quiz_admob_sample
+description: A highly styled Flutter Quiz Mobile Application integrated with Google AdMob test ads, ready for GitHub and Project IDX.
 version: 1.0.0+1
 
 environment:
@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  google_mobile_ads: ^4.0.0
 
 dev_dependencies:
   flutter_test:
